@@ -11,30 +11,6 @@ is_first_execution() {
     fi
 }
 
-# Network config in case it's needed
-NETWORK=0
-OPTIONS="n"
-
-while getopts $OPTIONS opt
-do
-	case $opt in
-		n)
-			# Set up the network if the flag was used
-			echo "Setting up static IP config for NAT network:"
-			cat osm-install-files/01-static-config.yaml
-			sudo cp osm-install-files/99-disable-network-config.cfg /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
-			sudo cp osm-install-files/01-static-config.yaml /etc/netplan/01-static-config.yaml
-			sudo chmod 600 /etc/netplan/01-static-config.yaml
-			sudo netplan apply
-		;;
-		\?)
-			# Handle invalid options
-			echo "Error: Invalid option -$OPTARG" >&2
-			exit 1
-			;;
-	esac
-done
-
 # Run an apt update just in case
 sudo apt update
 
@@ -62,4 +38,3 @@ export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ing
 echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
 export OSM_GUI_URL=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress ngui-ingress)
 echo "OSM UI: $OSM_GUI_URL"
-
