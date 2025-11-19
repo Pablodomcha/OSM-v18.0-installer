@@ -40,11 +40,11 @@ sudo apt update
 
 # Get the OSM files and run the first execution to create the file tree if it's the first execution of the script
 if is_first_execution; then
+	touch "$MARKER_FILE"
 	sudo apt install net-tools
 	wget https://osm-download.etsi.org/ftp/osm-18.0-eighteen/install_osm.sh
 	chmod +x install_osm.sh
 	./install_osm.sh -y
-	touch "$MARKER_FILE"
 fi
 # If it's not the first execution of the script, this step is ignored, as the file tree is already created
 
