@@ -29,7 +29,7 @@ sudo apt update
 sudo apt install net-tools
 wget https://osm-download.etsi.org/ftp/osm-18.0-eighteen/install_osm.sh
 chmod +x install_osm.sh
-./install_osm.sh -y || true
+{ ./install_osm.sh -y ; } || true
 
 # Change the necessary files for the installation to work
 sudo cp osm-install-files/10-install-client-toos.sh /usr/share/osm-devops/installers/10-install-client-tools.sh
