@@ -1,8 +1,19 @@
 #!/bin/bash
 
+MARKER_FILE=".osm_setup_complete"
+
+# Returns 0 (true) if the marker file does not exist, indicating a first run.
+is_first_execution() {
+    if [ ! -f "$MARKER_FILE" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Network config in case it's needed
 NETWORK=0
-OPTIONS="n"
+OPTIONS="nsi"
 
 while getopts $OPTIONS opt
 do
@@ -24,14 +35,18 @@ do
 	esac
 done
 
-
-
-# Get the OSM files and run the first execution to create the file tree
+# Run an apt update just in case
 sudo apt update
-sudo apt install net-tools
-wget https://osm-download.etsi.org/ftp/osm-18.0-eighteen/install_osm.sh
-chmod +x install_osm.sh
-{ ./install_osm.sh -y ; } || true
+
+# Get the OSM files and run the first execution to create the file tree if it's the first execution of the script
+if is_first_execution; then
+	sudo apt install net-tools
+	wget https://osm-download.etsi.org/ftp/osm-18.0-eighteen/install_osm.sh
+	chmod +x install_osm.sh
+	./install_osm.sh -y
+	touch "$MARKER_FILE"
+fi
+# If it's not the first execution of the script, this step is ignored, as the file tree is already created
 
 # Change the necessary files for the installation to work
 sudo cp osm-install-files/10-install-client-toos.sh /usr/share/osm-devops/installers/10-install-client-tools.sh
