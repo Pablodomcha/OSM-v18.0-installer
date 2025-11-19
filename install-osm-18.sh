@@ -13,6 +13,8 @@ do
 			cat osm-install-files/01-static-config.yaml
 			sudo cp osm-install-files/99-disable-network-config.cfg /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 			sudo cp osm-install-files/01-static-config.yaml /etc/netplan/01-static-config.yaml
+			sudo chmod 600 /etc/netplan/01-static-config.yaml
+			sudo netplan apply
 		;;
 		\?)
 			# Handle invalid options
@@ -39,3 +41,10 @@ sudo cp osm-install-files/charts /usr/share/osm-devops/installers/helm/osm/chart
 
 # Run the install again
 ./install_osm.sh -y 2>&1 | tee osm_install_log.txt
+
+# Save the values of the variables needed and echo them
+export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress nbi-ingress)
+echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
+export OSM_GUI_URL=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress ngui-ingress)
+echo "OSM UI: $OSM_GUI_URL"
+
