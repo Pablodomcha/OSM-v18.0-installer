@@ -9,6 +9,8 @@ do
 	case $opt in
 		n)
 			# Set up the network if the flag was used
+			echo "Setting up static IP config for NAT network:"
+			cat osm-install-files/01-static-config.yaml
 			sudo cp osm-install-files/99-disable-network-config.cfg /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
 			sudo cp osm-install-files/01-static-config.yaml /etc/netplan/01-static-config.yaml
 		;;
