@@ -30,7 +30,7 @@ sudo cp osm-install-files/values-standalone-ingress-ssh2222.yaml /usr/share/osm-
 sudo rm -r /usr/share/osm-devops/installers/helm/osm/charts
 sudo cp osm-install-files/charts /usr/share/osm-devops/installers/helm/osm/charts
 
-# Run the install again
+# Run the install again, saving a log of the installation, in case it's needed for troubleshooting
 ./install_osm.sh -y 2>&1 | tee osm_install_log.txt
 
 # Save the values of the variables needed and echo them
