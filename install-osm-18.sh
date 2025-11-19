@@ -13,7 +13,7 @@ is_first_execution() {
 
 # Network config in case it's needed
 NETWORK=0
-OPTIONS="nsi"
+OPTIONS="n"
 
 while getopts $OPTIONS opt
 do
