@@ -14,7 +14,7 @@ chmod +x install_osm.sh
 sudo cp osm-install-files/10-install-client-tools.sh /usr/share/osm-devops/installers/10-install-client-tools.sh
 sudo cp osm-install-files/values-standalone-ingress-ssh2222.yaml /usr/share/osm-devops/installers/gitea/values-standalone-ingress-ssh2222.yaml
 sudo rm -r /usr/share/osm-devops/installers/helm/osm/charts
-sudo cp osm-install-files/charts /usr/share/osm-devops/installers/helm/osm/charts
+sudo cp -r osm-install-files/charts /usr/share/osm-devops/installers/helm/osm/charts
 
 # Run the install again, saving a log of the installation, in case it's needed for troubleshooting
 ./install_osm.sh -y 2>&1 | tee osm_install_log.txt
