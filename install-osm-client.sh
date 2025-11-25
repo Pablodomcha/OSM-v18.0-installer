@@ -1,26 +1,13 @@
-#!/bin/bash
-
-# Run an apt update just in case
-sudo apt update
-
-# Get the OSM files and run the first execution to create the file tree
-touch "$MARKER_FILE"
-sudo apt install net-tools
-wget https://osm-download.etsi.org/ftp/osm-18.0-eighteen/install_osm.sh
-chmod +x install_osm.sh
-./install_osm.sh -y
-
-# Change the necessary files for the installation to work
-sudo cp osm-install-files/10-install-client-tools.sh /usr/share/osm-devops/installers/10-install-client-tools.sh
-sudo cp osm-install-files/values-standalone-ingress-ssh2222.yaml /usr/share/osm-devops/installers/gitea/values-standalone-ingress-ssh2222.yaml
-sudo rm -r /usr/share/osm-devops/installers/helm/osm/charts
-sudo cp -r osm-install-files/charts /usr/share/osm-devops/installers/helm/osm/charts
-
-# Run the install again, saving a log of the installation, in case it's needed for troubleshooting
-./install_osm.sh -y 2>&1 | tee osm_install_log.txt
-
-# Save the values of the variables needed and echo them
-export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress nbi-ingress)
-echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
-export OSM_GUI_URL=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress ngui-ingress)
-echo "OSM UI: $OSM_GUI_URL"
+OSM_CLIENT_VERSION="v18.0"
+OSM_IM_VERSION="v18.0"
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-setuptools python3-dev python3-pip
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y libmagic1
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y make
+sudo -H python3 -m pip install -U pip
+# Install OSM IM and its dependencies via pip
+python3 -m pip install -r "https://osm.etsi.org/gitweb/?p=osm/IM.git;a=blob_plain;f=requirements.txt;hb=${OSM_IM_VERSION}"
+# Path needs to include $HOME/.local/bin in order to use pyang
+[ "$(which pyang)" = "$HOME/.local/bin/pyang" ] || export PATH=$HOME/.local/bin:${PATH}
+python3 -m pip install "git+https://osm.etsi.org/gerrit/osm/IM.git@${OSM_IM_VERSION}#egg=osm-im" --upgrade
+python3 -m pip install -r "https://osm.etsi.org/gitweb/?p=osm/osmclient.git;a=blob_plain;f=requirements.txt;hb=${OSM_CLIENT_VERSION}"
+python3 -m pip install git+https://osm.etsi.org/gerrit/osm/osmclient.git@${OSM_CLIENT_VERSION}#egg=osmclient
