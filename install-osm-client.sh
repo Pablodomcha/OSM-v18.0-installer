@@ -35,3 +35,7 @@ echo "--------------------------------------------------------------------------
 echo "Installing git+https://osm.etsi.org/gerrit/osm/osmclient.git@${OSM_CLIENT_VERSION}#egg=osmclient (step 3/3)"
 echo "----------------------------------------------------------------------------------------------"
 python3 -m pip install git+https://osm.etsi.org/gerrit/osm/osmclient.git@${OSM_CLIENT_VERSION}#egg=osmclient
+echo "----------------------------------------------------------------------------------------------"
+echo "Adding /home/upm/.local/bin to path"
+echo "----------------------------------------------------------------------------------------------"
+export PATH=$PATH:/home/upm/.local/bin
