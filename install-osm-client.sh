@@ -38,4 +38,5 @@ python3 -m pip install git+https://osm.etsi.org/gerrit/osm/osmclient.git@${OSM_C
 echo "----------------------------------------------------------------------------------------------"
 echo "Adding /home/upm/.local/bin to path"
 echo "----------------------------------------------------------------------------------------------"
+sleep 5
 export PATH=$PATH:/home/upm/.local/bin
