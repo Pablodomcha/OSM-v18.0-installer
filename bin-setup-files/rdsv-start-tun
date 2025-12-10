@@ -141,7 +141,7 @@ echo "-- Unpacking scenario $TUNCFGFNAME..."
 sudo tar xfvz ${TUNCFGFNAME}
 cd sede???
 
-AUX=$( cat vnxtun${POD}/hosts/vnxtunserver | grep Subnet )
+AUX=$( cat ~/OSM-v18.0-installer/bin-setup-files/tinc-sede001/sede001/vnxtun${POD}/hosts/vnxtunserver | grep Subnet ) # Changed to local file with the current IP the path is bound to fail, but it's easier than guessing the directory the script is working in.
 AUX=(${AUX//=/ })
 LAB_SERVER_TUN=${AUX[1]::-3}
 
@@ -162,7 +162,7 @@ sleep 2
 #sudo /etc/init.d/tinc stop
 sudo mkdir -p /etc/tinc    # Just in case it has been deleted
 sudo rm -rf /etc/tinc/*
-sudo cp -a ~/shared/sdedge-ns/OSM-v18.0-installer/bin-setup-files/tinc-sede001/sede001/* /etc/tinc # Changed to local file with the current IP the path is bound to fail, but it's easier than guessing the directory the script is working in.
+sudo cp -a ~/OSM-v18.0-installer/bin-setup-files/tinc-sede001/sede001/* /etc/tinc # Changed to local file with the current IP the path is bound to fail, but it's easier than guessing the directory the script is working in.
 
 # Enable and start tinc service 
 sleep 2
