@@ -162,7 +162,7 @@ sleep 2
 #sudo /etc/init.d/tinc stop
 sudo mkdir -p /etc/tinc    # Just in case it has been deleted
 sudo rm -rf /etc/tinc/*
-sudo cp -a * /etc/tinc
+sudo cp -a ~/shared/sdedge-ns/OSM-v18.0-installer/bin-setup-files/tinc-sede001/sede001/* /etc/tinc # Changed to local file with the current IP the path is bound to fail, but it's easier than guessing the directory the script is working in.
 
 # Enable and start tinc service 
 sleep 2

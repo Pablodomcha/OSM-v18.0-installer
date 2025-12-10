@@ -14,18 +14,18 @@ sed -i -e '/OSM_USER/d' \
        -e '/alias kubectl/d' \
        ~/.bashrc
 
-echo "export OSM_USER=user$SCEN" >> ~/.bashrc
-echo "export OSM_PASSWORD=xxxx$SCEN" >> ~/.bashrc
-echo "export OSM_PROJECT=prj$SCEN" >> ~/.bashrc
+echo "export OSM_USER=admin" >> ~/.bashrc
+echo "export OSM_PASSWORD=admin" >> ~/.bashrc
+echo "export OSM_PROJECT=rpry$SCEN" >> ~/.bashrc
 
-echo "export OSM_HOSTNAME=10.0.2.15" >> ~/.bashrc
+echo "export OSM_HOSTNAME=nbi.10.0.2.15.nip.io" >> ~/.bashrc
 echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
 
 #source ~/.bashrc 
-export OSM_USER=user$SCEN
-export OSM_PASSWORD=xxxx$SCEN
-export OSM_PROJECT=prj$SCEN
-export OSM_HOSTNAME=10.0.2.15
+export OSM_USER=admin
+export OSM_PASSWORD=admin
+export OSM_PROJECT=rpry$SCEN
+export OSM_HOSTNAME=nbi.10.0.2.15.nip.io
 
 echo "-- "
 echo "-- Script for preparing the enviroment for OSM laboratory "
