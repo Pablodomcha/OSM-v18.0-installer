@@ -25,6 +25,7 @@ osm k8scluster-list
 #read -p "PAK"
 #osm k8scluster-show --literal $KID | grep -A1 projects
 OSMNS=$( osm k8scluster-show --literal $KID | awk '/projects_read/{getline;print $2}' )
+export OSMNS
 echo "-- KID=$KID"
 echo "-- OSMNS=$OSMNS"
 
