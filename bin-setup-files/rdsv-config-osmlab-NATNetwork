@@ -1,42 +1,7 @@
 #!/bin/bash
 
-if [ -z $1 ]; then
-    echo "-- ERROR: specify the letter of the scenario assigned"
-    echo "-- Usage: prepare-osmlab <letter>, being <letter> an uppercase letter (A-Z)"
-    exit 1
-fi
-SCEN=$1
-
-sed -i -e '/OSM_USER/d' \
-       -e '/OSM_PASSWORD/d' \
-       -e '/OSM_PROJECT/d' \
-       -e '/OSM_HOSTNAME/d' \
-       -e '/alias kubectl/d' \
-       ~/.bashrc
-
-echo "export OSM_USER=rdsv$SCEN" >> ~/.bashrc
-echo "export OSM_PASSWORD=xxxx$SCEN" >> ~/.bashrc
-echo "export OSM_PROJECT=rpry$SCEN" >> ~/.bashrc
-
-echo "export OSM_HOSTNAME=10.11.13.1" >> ~/.bashrc
-echo "alias kubectl='microk8s kubectl'" >> ~/.bashrc
-
-#source ~/.bashrc 
-export OSM_USER=rdsv$SCEN
-export OSM_PASSWORD=xxxx$SCEN
-export OSM_PROJECT=rpry$SCEN
-export OSM_HOSTNAME=10.11.13.1
-
-echo "-- "
-echo "-- Script for preparing the enviroment for OSM laboratory "
-echo "-- "
-MYIP=$( ifconfig | grep 10.11.13 | awk '{print $2}' )
-echo "-- My IP=$MYIP"
-
 # Delete dummy VIM if registered
 osm vim-show dummy_vim > /dev/null 2>&1 && ( echo "-- Deleting dummy_vim..."; osm vim-delete --wait dummy_vim )
-
-#read -p "PAK"
 
 osm vim-create --name dummy_vim --user u --password p --tenant p \
 --account_type dummy --auth_url http://localhost/dummy --wait
@@ -46,18 +11,16 @@ osm vim-list
 # Delete microk8s-cluster registration if already registered
 osm k8scluster-show microk8s-cluster > /dev/null 2>&1 && ( echo "-- Deleting microk8s-cluster previous registration..."; osm k8scluster-delete --wait microk8s-cluster )
 sleep 6
+
 #read -p "PAK"
 
-echo "-- Updating microk8s-cluster IP in yaml"
-sed -i 's/^\(    server: https:\/\/\).*/\1'$MYIP:16443'/' ~/k8s-cluster.yaml
+echo "-- Creating config yaml"
+microk8s.config > k8s-cluster.yaml
 
 echo "-- Registering microk8s-cluster"
-KID=$(osm k8scluster-add --creds ~/k8s-cluster.yaml --version 1.21 \
---vim dummy_vim --description "External k8s cluster" --k8s-nets \
-'{"net1": "osm-ext"}' --wait microk8s-cluster)
+KID=$(osm k8scluster-add --creds k8s-cluster.yaml --version 1.31 --vim dummy_vim --description "External k8s cluster" --k8s-nets '{"net1": "osm-ext"}' microk8s-cluster)
 
 osm k8scluster-list
-
 
 #read -p "PAK"
 #osm k8scluster-show --literal $KID | grep -A1 projects
