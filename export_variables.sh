@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# 1. Get the actual current IP of the interface
-CURRENT_IP=$(ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+# 1. Get ONLY the first IP of the interface
+CURRENT_IP=$(ip -4 addr show enp0s3 | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -n1)
 
 # 2. Update the local kubeconfig first
 sed -i "s|server: https://.*:6443|server: https://${CURRENT_IP}:6443|" ~/.kube/config
