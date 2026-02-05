@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Edit the file to use the new IP
+./edit_IP.sh
+
 # Save the values of the variables needed and echo them
 export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress nbi-ingress)
 echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
