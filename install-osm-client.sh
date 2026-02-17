@@ -1,6 +1,6 @@
 OSM_CLIENT_VERSION="v18.0"
 echo "OSM_CLIENT_VERSION=$OSM_CLIENT_VERSION"
-OSM_IM_VERSION="v18.0"
+OSM_IM_VERSION="v19.0"
 echo "OSM_IM_VERSION=$OSM_IM_VERSION"
 echo "------------------------------"
 echo "| Installing DEBIAN FRONTEND |"
