@@ -5,7 +5,7 @@ sudo apt update
 
 # Get the OSM files and run the first execution to create the file tree
 sudo apt install net-tools
-wget https://osm-download.etsi.org/ftp/osm-19.0-eighteen/install_osm.sh
+wget https://osm-download.etsi.org/ftp/osm-19.0-nineteen/install_osm.sh
 chmod +x install_osm.sh
 ./install_osm.sh -y 2>&1 | tee osm_install_log.txt
 
