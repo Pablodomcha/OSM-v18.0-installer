@@ -21,5 +21,5 @@ To fix the problems that most likely come from dependancies becoming legacy, fol
 		sudo tar -xzf mongodb-13.9.4.tgz
 	then remove the tgz files to ensure it's loading from the folders and not the tar files you don't need to compress the results, this will load from the folders without issue.
 
-4.	Do the same replacement as step 2. To find which files need to be renamed just do:
+4.	Do the same replacement as step 2. To find which files may need to be renamed just do:
 		grep -r "bitnami/" .
