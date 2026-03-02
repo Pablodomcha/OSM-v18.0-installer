@@ -1,75 +1,83 @@
 vnfd:
-  id: bcg1_vnfd
-  product-name: bcg1_vnfd
-  description: Bridge Customer Gateway based on VNX sdedge_nfv
+  id: r2_vnfd
+  product-name: r2_vnfd
+  description: Router r2 for the sdedge_nfv scenario
   version: "1.0"
   mgmt-cp: cp-mgmt
+
   virtual-compute-desc:
-    - id: bcg-compute
+    - id: r2-compute
       virtual-cpu:
         num-virtual-cpu: 1
       virtual-memory:
-        size: 1 # Use integer 1 instead of 1.0
+        size: 1
+
   virtual-storage-desc:
-    - id: bcg-storage
-      size-of-storage: 5  # Size in GB
+    - id: r2-storage
+      size-of-storage: 5
+
   sw-image-desc:
     - id: ubuntu20
       name: ubuntu20
+
   vdu:
-    - id: bcg-vdu
-      name: bcg-vdu
+    - id: r2-vdu
+      name: r2-vdu
       sw-image-desc: ubuntu20
-      virtual-compute-desc: bcg-compute
+      virtual-compute-desc: r2-compute
       virtual-storage-desc:
-        - bcg-storage
+        - r2-storage
       int-cpd:
-        - id: eth0-int
+        - id: eth0-int # Management
           virtual-network-interface-requirement:
             - name: eth0
               virtual-interface:
-                type: VIRTIO # Explicitly define the interface type
-        - id: eth1-int
+                type: VIRTIO
+        - id: eth1-int # lan1 (10.20.1.1/24)
           virtual-network-interface-requirement:
             - name: eth1
               virtual-interface:
                 type: VIRTIO
-        - id: eth2-int
+        - id: eth2-int # lan11 (10.20.0.1/24)
           virtual-network-interface-requirement:
             - name: eth2
               virtual-interface:
                 type: VIRTIO
-        - id: eth3-int
+        - id: eth3-int # lan12 (192.168.255.253/24)
           virtual-network-interface-requirement:
             - name: eth3
               virtual-interface:
                 type: VIRTIO
-      cloud-init-file: bcg1_cloud_init.cfg
+      
+      # Cloud-init to handle IP forwarding and routing from the XML
+      cloud-init-file: r2_cloud_init.cfg
+
   df:
     - id: default-df
       vdu-profile:
-        - id: bcg-vdu
+        - id: r2-vdu
           min-number-of-instances: 1
       instantiation-level:
         - id: default-level
           vdu-level:
-            - vdu-id: bcg-vdu
+            - vdu-id: r2-vdu
               number-of-instances: 1
       default-instantiation-level: default-level
+
   ext-cpd:
     - id: cp-mgmt
       int-cpd:
-        vdu-id: bcg-vdu
+        vdu-id: r2-vdu
         cpd: eth0-int
-    - id: cp-lan11
+    - id: cp-lan2
       int-cpd:
-        vdu-id: bcg-vdu
+        vdu-id: r2-vdu
         cpd: eth1-int
-    - id: cp-lan12
+    - id: cp-lan21
       int-cpd:
-        vdu-id: bcg-vdu
+        vdu-id: r2-vdu
         cpd: eth2-int
-    - id: cp-access
+    - id: cp-lan22
       int-cpd:
-        vdu-id: bcg-vdu
+        vdu-id: r2-vdu
         cpd: eth3-int

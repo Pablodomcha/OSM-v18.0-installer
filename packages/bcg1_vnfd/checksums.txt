@@ -1,1 +1,2 @@
-3fea1205b10d3185015aab5074ae3fb5	bcg1_vnfd/bcg1_vnfd.yaml
+0b79da5e03614b254e9788190c1dbe67	bcg1_vnfd/bcg1_vnfd.yaml
+25c2c57caae5fe1c9d1978402d9127ca	bcg1_vnfd/cloud_init/bcg1_cloud_init.cfg

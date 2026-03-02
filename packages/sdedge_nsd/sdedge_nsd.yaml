@@ -2,21 +2,32 @@ nsd:
   nsd:
     - id: sdedge_ns
       name: sdedge_ns
-      designer: OSM
+      designer: "OSM"
       version: "1.0"
+      description: "Full SD-WAN edge scenario with two branches"
       vnfd-id:
         - host_vnfd
         - r1_vnfd
+        - r2_vnfd
         - bcg1_vnfd
+        - bcg2_vnfd
       df:
         - id: default-df
           vnf-profile:
+            # --- Branch 1 ---
             - id: h1
               vnfd-id: host_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan1
                   constituent-cpd-id:
                     - constituent-base-element-id: h1
+                      constituent-cpd-id: cp-lan
+            - id: t1
+              vnfd-id: host_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan1
+                  constituent-cpd-id:
+                    - constituent-base-element-id: t1
                       constituent-cpd-id: cp-lan
             - id: r1
               vnfd-id: r1_vnfd
@@ -44,10 +55,53 @@ nsd:
                   constituent-cpd-id:
                     - constituent-base-element-id: bcg1
                       constituent-cpd-id: cp-lan12
+
+            # --- Branch 2 ---
+            - id: h2
+              vnfd-id: host_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan2
+                  constituent-cpd-id:
+                    - constituent-base-element-id: h2
+                      constituent-cpd-id: cp-lan
+            - id: t2
+              vnfd-id: host_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan1
+                  constituent-cpd-id:
+                    - constituent-base-element-id: t2
+                      constituent-cpd-id: cp-lan
+            - id: r2
+              vnfd-id: r2_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan2
+                  constituent-cpd-id:
+                    - constituent-base-element-id: r2
+                      constituent-cpd-id: cp-lan2
+                - virtual-link-profile-id: lan21
+                  constituent-cpd-id:
+                    - constituent-base-element-id: r2
+                      constituent-cpd-id: cp-lan21
+                - virtual-link-profile-id: lan22
+                  constituent-cpd-id:
+                    - constituent-base-element-id: r2
+                      constituent-cpd-id: cp-lan22
+            - id: bcg2
+              vnfd-id: bcg2_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan21
+                  constituent-cpd-id:
+                    - constituent-base-element-id: bcg2
+                      constituent-cpd-id: cp-lan21
+                - virtual-link-profile-id: lan22
+                  constituent-cpd-id:
+                    - constituent-base-element-id: bcg2
+                      constituent-cpd-id: cp-lan22
+
       virtual-link-desc:
         - id: lan1
-          mgmt-network: false
         - id: lan11
-          mgmt-network: false
         - id: lan12
-          mgmt-network: false
+        - id: lan2
+        - id: lan21
+        - id: lan22

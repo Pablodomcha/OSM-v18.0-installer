@@ -1,0 +1,2 @@
+47904efa78ec13daf7bf8d305a9889a3	bcg2_vnfd/bcg2_vnfd.yaml
+25c2c57caae5fe1c9d1978402d9127ca	bcg2_vnfd/cloud_init/bcg2_cloud_init.cfg

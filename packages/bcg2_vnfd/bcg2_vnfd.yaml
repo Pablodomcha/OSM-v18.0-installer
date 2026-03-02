@@ -1,6 +1,6 @@
 vnfd:
-  id: bcg1_vnfd
-  product-name: bcg1_vnfd
+  id: bcg2_vnfd
+  product-name: bcg2_vnfd
   description: Bridge Customer Gateway based on VNX sdedge_nfv
   version: "1.0"
   mgmt-cp: cp-mgmt
@@ -44,7 +44,7 @@ vnfd:
             - name: eth3
               virtual-interface:
                 type: VIRTIO
-      cloud-init-file: bcg1_cloud_init.cfg
+      cloud-init-file: bcg2_cloud_init.cfg
   df:
     - id: default-df
       vdu-profile:
@@ -61,15 +61,15 @@ vnfd:
       int-cpd:
         vdu-id: bcg-vdu
         cpd: eth0-int
-    - id: cp-lan11
+    - id: cp-lan21
       int-cpd:
         vdu-id: bcg-vdu
         cpd: eth1-int
-    - id: cp-lan12
+    - id: cp-lan22
       int-cpd:
         vdu-id: bcg-vdu
         cpd: eth2-int
-    - id: cp-access
+    - id: cp-access2
       int-cpd:
         vdu-id: bcg-vdu
         cpd: eth3-int
