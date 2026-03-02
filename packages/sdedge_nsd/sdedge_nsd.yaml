@@ -1,0 +1,53 @@
+nsd:
+  nsd:
+    - id: sdedge_ns
+      name: sdedge_ns
+      designer: OSM
+      version: "1.0"
+      vnfd-id:
+        - host_vnfd
+        - r1_vnfd
+        - bcg1_vnfd
+      df:
+        - id: default-df
+          vnf-profile:
+            - id: h1
+              vnfd-id: host_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan1
+                  constituent-cpd-id:
+                    - constituent-base-element-id: h1
+                      constituent-cpd-id: cp-lan
+            - id: r1
+              vnfd-id: r1_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan1
+                  constituent-cpd-id:
+                    - constituent-base-element-id: r1
+                      constituent-cpd-id: cp-lan1
+                - virtual-link-profile-id: lan11
+                  constituent-cpd-id:
+                    - constituent-base-element-id: r1
+                      constituent-cpd-id: cp-lan11
+                - virtual-link-profile-id: lan12
+                  constituent-cpd-id:
+                    - constituent-base-element-id: r1
+                      constituent-cpd-id: cp-lan12
+            - id: bcg1
+              vnfd-id: bcg1_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: lan11
+                  constituent-cpd-id:
+                    - constituent-base-element-id: bcg1
+                      constituent-cpd-id: cp-lan11
+                - virtual-link-profile-id: lan12
+                  constituent-cpd-id:
+                    - constituent-base-element-id: bcg1
+                      constituent-cpd-id: cp-lan12
+      virtual-link-desc:
+        - id: lan1
+          mgmt-network: false
+        - id: lan11
+          mgmt-network: false
+        - id: lan12
+          mgmt-network: false
