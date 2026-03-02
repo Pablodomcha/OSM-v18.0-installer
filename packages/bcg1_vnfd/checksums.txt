@@ -1,0 +1,1 @@
+3fea1205b10d3185015aab5074ae3fb5	bcg1_vnfd/bcg1_vnfd.yaml
