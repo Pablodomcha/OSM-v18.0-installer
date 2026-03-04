@@ -16,6 +16,7 @@ vnfd:
   sw-image-desc:
     - id: ubuntu20
       name: ubuntu20
+      image: ubuntu20
   vdu:
     - id: bcg-vdu
       name: bcg-vdu

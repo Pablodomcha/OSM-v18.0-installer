@@ -7,7 +7,6 @@ if [ ! -f ~/.ssh/id_rsa.pub ]; then
 fi
 
 PUB_KEY=$(cat ~/.ssh/id_rsa.pub)
-echo "Public Key: $PUB_KEY"
 
 # 2. Iterate through each VNF directory
 for dir in *_vnfd/; do
