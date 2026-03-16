@@ -1,0 +1,1 @@
+ed5ff237c3bacf8d4126b40350ed1a5f	gateway_vnfd/gateway_vnfd.yaml

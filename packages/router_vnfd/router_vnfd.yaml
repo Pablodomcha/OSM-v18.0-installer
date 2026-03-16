@@ -1,20 +1,20 @@
 vnfd:
-  id: host_vnfd
-  product-name: host_vnfd
-  description: "Unified Host for Branch 1 and Branch 2 hosts (h1, t1, h2, t2)"
+  id: router_vnfd
+  product-name: router_vnfd
+  description: "Unified Router for Branch 1 and 2"
   version: "1.0"
   mgmt-cp: cp-mgmt
 
   # --- Hardware Resources ---
   virtual-compute-desc:
-    - id: host-compute
+    - id: router-compute
       virtual-cpu:
         num-virtual-cpu: 1
       virtual-memory:
         size: 1
 
   virtual-storage-desc:
-    - id: host-storage
+    - id: router-storage
       size-of-storage: 5
 
   sw-image-desc:
@@ -24,20 +24,28 @@ vnfd:
 
   # --- Virtual Deployment Unit ---
   vdu:
-    - id: host-vdu
-      name: host-vdu
+    - id: router-vdu
+      name: router-vdu
       sw-image-desc: ubuntu20
-      virtual-compute-desc: host-compute
+      virtual-compute-desc: router-compute
       virtual-storage-desc:
-        - host-storage
+        - router-storage
       int-cpd:
-        - id: eth0-int # Management
+        - id: cp-mgmt-int
           virtual-network-interface-requirement:
             - name: eth0
               virtual-interface: {type: VIRTIO}
-        - id: eth1-int # Connection to local LAN (lan1 or lan2)
+        - id: cp-lan-int
           virtual-network-interface-requirement:
             - name: eth1
+              virtual-interface: {type: VIRTIO}
+        - id: cp-p2p-int
+          virtual-network-interface-requirement:
+            - name: eth2
+              virtual-interface: {type: VIRTIO}
+        - id: cp-wan-int
+          virtual-network-interface-requirement:
+            - name: eth3
               virtual-interface: {type: VIRTIO}
       
       cloud-init: |
@@ -49,29 +57,31 @@ vnfd:
             ssh_authorized_keys:
               - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCsoNtT00fCHJ6SLOhW0Ds8Enz+UkuyWaT55UtAIPIUDJ7aWka3DAS+K48utnKA/18DqmRHi0Nt2GVbb4hv7df/SwYUE/W0V2pwLbv6X6KALqfHd9pPPeT2Yq28pixz38yGcZDZvXVJ9E71wqMoUrF8H1gWw3f9vAkHxG6m28OHLXPRZmUspbhxxQclhsfw/fWjsT6Pa/OENTX9uGJpjC+k5S/yeNV/tSTGEE7FB293NLiscEPhZl1F+WWVS43lkfJ60ngGM9rhkbHJ1SKYeEGmmV7W7d1qknVAuJdPjEW2ZCdzZlT0vGLf/2ewXsvi2/BsdRHmO2GoRvZB9VVpmsq2JIjSY9fxE0MRQfoTDZr8YKiI8+HfuWDDYQ41DycCw18EehsvqMlo9+4d3+No3ofSBn3YIv+hTM/xIUUO5Zt/d+SJOC+LcqxpyY4t0cA3eZPngkKqaOksSUoFCMH4xOCtqC7qSM0IYAoVYnM8PEzSoVN3CE/pB4/USa94s+ZiT2xLImWJQ+oOk+BOJvk/j4tH13GD7AyQRIibw+eoUdac2jDSk4qbv6UoD/ejbHmNTR8wS9PKSQbXE3kgOylkoq7DSwVW2nxSTefEDP017hw2VdgN00wl1LV8evvRIXguTPkpX+vDbYmGluJLSlCnCyE8jNf3TV1gr8QMICXuiRz6iw== upm@vnxlab
         runcmd:
-          # Change interface MTU as specified in XML
+          - sysctl -w net.ipv4.ip_forward=1
           - ifconfig eth1 mtu 1400
           - sed -i -e '/iface eth1 inet static/a \   mtu 1400' /etc/network/interfaces
-          
-          # Set default gateway
-          # Variable {{ local_gw_ip }} is injected at instantiation
-          - ip route add default via {{ local_gw_ip }}
+          - ip route add {{ remote_branch_subnet }} via {{ p2p_next_hop }}
+          - ip route add default via {{ internet_gw }}
 
   df:
     - id: default-df
       vdu-profile:
-        - id: host-vdu
+        - id: router-vdu
           min-number-of-instances: 1
       instantiation-level:
         - id: default-level
           vdu-level:
-            - vdu-id: host-vdu
+            - vdu-id: router-vdu
               number-of-instances: 1
       default-instantiation-level: default-level
 
-  # --- External Connection Points (Added for NSD mapping) ---
+  # --- External Connection Points ---
   ext-cpd:
     - id: cp-mgmt
-      int-cpd: {vdu-id: host-vdu, cpd: eth0-int}
+      int-cpd: {vdu-id: router-vdu, cpd: cp-mgmt-int}
     - id: cp-lan
-      int-cpd: {vdu-id: host-vdu, cpd: eth1-int}
+      int-cpd: {vdu-id: router-vdu, cpd: cp-lan-int}
+    - id: cp-p2p
+      int-cpd: {vdu-id: router-vdu, cpd: cp-p2p-int}
+    - id: cp-wan
+      int-cpd: {vdu-id: router-vdu, cpd: cp-wan-int}

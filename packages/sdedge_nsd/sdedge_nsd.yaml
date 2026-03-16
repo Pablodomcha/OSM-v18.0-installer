@@ -4,13 +4,14 @@ nsd:
       name: sdedge_ns
       designer: "OSM"
       version: "1.0"
-      description: "Full SD-WAN edge scenario with two branches"
+      description: "Full SD-WAN edge scenario with two branches using unified VNFDs"
       vnfd-id:
         - host_vnfd
-        - r1_vnfd
-        - r2_vnfd
-        - bcg1_vnfd
-        - bcg2_vnfd
+        - router_vnfd
+        - gateway_vnfd
+        - isp_vnfd
+        - s_vnfd
+        - voip_gw_vnfd
       df:
         - id: default-df
           vnf-profile:
@@ -19,84 +20,86 @@ nsd:
               vnfd-id: host_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan1
-                  constituent-cpd-id:
-                    - constituent-base-element-id: h1
-                      constituent-cpd-id: cp-lan
+                  constituent-cpd-id: [{constituent-base-element-id: h1, constituent-cpd-id: cp-lan}]
             - id: t1
               vnfd-id: host_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan1
-                  constituent-cpd-id:
-                    - constituent-base-element-id: t1
-                      constituent-cpd-id: cp-lan
+                  constituent-cpd-id: [{constituent-base-element-id: t1, constituent-cpd-id: cp-lan}]
             - id: r1
-              vnfd-id: r1_vnfd
+              vnfd-id: router_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan1
-                  constituent-cpd-id:
-                    - constituent-base-element-id: r1
-                      constituent-cpd-id: cp-lan1
+                  constituent-cpd-id: [{constituent-base-element-id: r1, constituent-cpd-id: cp-lan}]
                 - virtual-link-profile-id: lan11
-                  constituent-cpd-id:
-                    - constituent-base-element-id: r1
-                      constituent-cpd-id: cp-lan11
+                  constituent-cpd-id: [{constituent-base-element-id: r1, constituent-cpd-id: cp-p2p}]
                 - virtual-link-profile-id: lan12
-                  constituent-cpd-id:
-                    - constituent-base-element-id: r1
-                      constituent-cpd-id: cp-lan12
+                  constituent-cpd-id: [{constituent-base-element-id: r1, constituent-cpd-id: cp-wan}]
             - id: bcg1
-              vnfd-id: bcg1_vnfd
+              vnfd-id: gateway_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan11
-                  constituent-cpd-id:
-                    - constituent-base-element-id: bcg1
-                      constituent-cpd-id: cp-lan11
+                  constituent-cpd-id: [{constituent-base-element-id: bcg1, constituent-cpd-id: cp-lan-ext}]
                 - virtual-link-profile-id: lan12
-                  constituent-cpd-id:
-                    - constituent-base-element-id: bcg1
-                      constituent-cpd-id: cp-lan12
+                  constituent-cpd-id: [{constituent-base-element-id: bcg1, constituent-cpd-id: cp-lan-int}]
+                - virtual-link-profile-id: accessnet1
+                  constituent-cpd-id: [{constituent-base-element-id: bcg1, constituent-cpd-id: cp-access}]
 
             # --- Branch 2 ---
             - id: h2
               vnfd-id: host_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan2
-                  constituent-cpd-id:
-                    - constituent-base-element-id: h2
-                      constituent-cpd-id: cp-lan
+                  constituent-cpd-id: [{constituent-base-element-id: h2, constituent-cpd-id: cp-lan}]
             - id: t2
               vnfd-id: host_vnfd
               virtual-link-connectivity:
-                - virtual-link-profile-id: lan1
-                  constituent-cpd-id:
-                    - constituent-base-element-id: t2
-                      constituent-cpd-id: cp-lan
+                - virtual-link-profile-id: lan2
+                  constituent-cpd-id: [{constituent-base-element-id: t2, constituent-cpd-id: cp-lan}]
             - id: r2
-              vnfd-id: r2_vnfd
+              vnfd-id: router_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan2
-                  constituent-cpd-id:
-                    - constituent-base-element-id: r2
-                      constituent-cpd-id: cp-lan2
+                  constituent-cpd-id: [{constituent-base-element-id: r2, constituent-cpd-id: cp-lan}]
                 - virtual-link-profile-id: lan21
-                  constituent-cpd-id:
-                    - constituent-base-element-id: r2
-                      constituent-cpd-id: cp-lan21
+                  constituent-cpd-id: [{constituent-base-element-id: r2, constituent-cpd-id: cp-p2p}]
                 - virtual-link-profile-id: lan22
-                  constituent-cpd-id:
-                    - constituent-base-element-id: r2
-                      constituent-cpd-id: cp-lan22
+                  constituent-cpd-id: [{constituent-base-element-id: r2, constituent-cpd-id: cp-wan}]
             - id: bcg2
-              vnfd-id: bcg2_vnfd
+              vnfd-id: gateway_vnfd
               virtual-link-connectivity:
                 - virtual-link-profile-id: lan21
-                  constituent-cpd-id:
-                    - constituent-base-element-id: bcg2
-                      constituent-cpd-id: cp-lan21
+                  constituent-cpd-id: [{constituent-base-element-id: bcg2, constituent-cpd-id: cp-lan-ext}]
                 - virtual-link-profile-id: lan22
-                  constituent-cpd-id:
-                    - constituent-base-element-id: bcg2
-                      constituent-cpd-id: cp-lan22
+                  constituent-cpd-id: [{constituent-base-element-id: bcg2, constituent-cpd-id: cp-lan-int}]
+                - virtual-link-profile-id: accessnet2
+                  constituent-cpd-id: [{constituent-base-element-id: bcg2, constituent-cpd-id: cp-access}]
+
+            # --- Infrastructure ---
+            - id: isp1
+              vnfd-id: isp_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: extnet1
+                  constituent-cpd-id: [{constituent-base-element-id: isp1, constituent-cpd-id: cp-ext}]
+                - virtual-link-profile-id: internet
+                  constituent-cpd-id: [{constituent-base-element-id: isp1, constituent-cpd-id: cp-int}]
+            - id: isp2
+              vnfd-id: isp_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: extnet2
+                  constituent-cpd-id: [{constituent-base-element-id: isp2, constituent-cpd-id: cp-ext}]
+                - virtual-link-profile-id: internet
+                  constituent-cpd-id: [{constituent-base-element-id: isp2, constituent-cpd-id: cp-int}]
+            - id: s1
+              vnfd-id: s_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: internet
+                  constituent-cpd-id: [{constituent-base-element-id: s1, constituent-cpd-id: cp-int}]
+            - id: voip-gw
+              vnfd-id: voip_gw_vnfd
+              virtual-link-connectivity:
+                - virtual-link-profile-id: mpls-wan
+                  constituent-cpd-id: [{constituent-base-element-id: voip-gw, constituent-cpd-id: cp-mpls}]
 
       virtual-link-desc:
         - id: lan1
@@ -105,3 +108,9 @@ nsd:
         - id: lan2
         - id: lan21
         - id: lan22
+        - id: internet
+        - id: mpls-wan
+        - id: extnet1
+        - id: extnet2
+        - id: accessnet1
+        - id: accessnet2

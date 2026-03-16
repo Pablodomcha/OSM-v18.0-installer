@@ -1,0 +1,1 @@
+e5c2616cb94209dd99bfe27f6ecce463	router_vnfd/router_vnfd.yaml
