@@ -3,6 +3,10 @@
 # Run an apt update just in case
 sudo apt update
 
+# Install microk8s
+sudo snap install microk8s --classic
+microk8s enable dns storage ingress
+
 # Get the OSM files and run the first execution to create the file tree
 sudo apt install net-tools
 wget https://osm-download.etsi.org/ftp/osm-19.0-nineteen/install_osm.sh
