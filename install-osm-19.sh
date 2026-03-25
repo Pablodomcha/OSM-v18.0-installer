@@ -4,8 +4,8 @@
 sudo apt update
 
 # Install microk8s
-sudo snap install microk8s --classic
-microk8s enable dns storage ingress
+# sudo snap install microk8s --classic
+# microk8s enable dns storage ingress
 
 # Get the OSM files and run the first execution to create the file tree
 sudo apt install net-tools
