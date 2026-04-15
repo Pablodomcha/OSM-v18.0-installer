@@ -10,7 +10,7 @@ sed -i "s|server: https://.*:6443|server: https://${CURRENT_IP}:6443|" ~/.kube/c
 kubectl patch ingress nbi-ingress -n osm --type='json' -p="[{\"op\": \"replace\", \"path\": \"/spec/rules/0/host\", \"value\":\"nbi.${CURRENT_IP}.nip.io\"}]" > /dev/null
 kubectl patch ingress ngui-ingress -n osm --type='json' -p="[{\"op\": \"replace\", \"path\": \"/spec/rules/0/host\", \"value\":\"gui.${CURRENT_IP}.nip.io\"}]" > /dev/null
 
-# 4. Now capture the variables as you did before
+# 4. Now capture the variables
 export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress nbi-ingress)
 echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
 
