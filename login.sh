@@ -25,7 +25,7 @@ if [ "$#" -ne 3 ]; then
 fi
 
 # Assigning the positional parameters to named variables
-OSM_USER==$1
+OSM_USER=$1
 OSM_PASSWORD=$2
 OSM_PROJECT=$3
 
@@ -33,6 +33,11 @@ echo "export OSM_USER=$OSM_USER" >> ~/.bashrc
 echo "export OSM_PASSWORD=$OSM_PASSWORD" >> ~/.bashrc
 echo "export OSM_PROJECT=$OSM_PROJECT" >> ~/.bashrc
 
-echo "Now working as user $OSM_USER in project $OSM_PROJECT"
-echo "Run \"source ~/.bashrc\" now in case you didn't run this with \"source\"."
+echo "--------------------------------------------------------------------------------"
+echo "Saving Credentials for OSM..."
+echo ""
+echo "Now working as user \"$OSM_USER\" in project \"$OSM_PROJECT\""
+echo ""
+echo "It is reccomended to close this terminal an open a new one to hide your password, you can use \"source ~/.bashrc\" if you do not want to close it."
+echo "--------------------------------------------------------------------------------"
 
