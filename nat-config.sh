@@ -7,4 +7,4 @@ sudo cp osm-install-files/99-disable-network-config.cfg /etc/cloud/cloud.cfg.d/9
 sudo cp osm-install-files/01-static-config.yaml /etc/netplan/01-static-config.yaml
 sudo chmod 600 /etc/netplan/01-static-config.yaml
 sudo netplan apply
-echo "Path to the file to edit the static IP: \"/etc/netplan/01-static-config.yaml\""
+echo "To edit the static IP, do so in the file \"osm-install-files/01-static-config.yaml\" and run this script again."
