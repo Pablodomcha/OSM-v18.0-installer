@@ -1,2 +1,0 @@
-be24b0b5c2d6f5a7e320cf22bcc431d0	r2_vnfd/r2_vnfd.yaml
-228e94a7693bf5242177cbfd508ceb44	r2_vnfd/cloud_init/r2_cloud_init.cfg

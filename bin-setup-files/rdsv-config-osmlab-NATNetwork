@@ -26,6 +26,7 @@ osm k8scluster-list
 #osm k8scluster-show --literal $KID | grep -A1 projects
 OSMNS=$( osm k8scluster-show --literal $KID | awk '/projects_read/{getline;print $2}' )
 export OSMNS
+echo 'export OSMNS="$OSMNS"' >> ~/.bashrc
 echo "-- KID=$KID"
 echo "-- OSMNS=$OSMNS"
 
@@ -149,3 +150,7 @@ EOF
 
 echo "-- kubectl get -n $OSMNS network-attachment-definitions"
 microk8s kubectl get -n $OSMNS network-attachment-definitions
+
+echo "----------------------------------------------------------------------------------------------"
+echo "If you didn't run this command with source, you need to run \"source ~/.bashrc\" or close this terminal and open another for the path to be updated."
+echo "----------------------------------------------------------------------------------------------"

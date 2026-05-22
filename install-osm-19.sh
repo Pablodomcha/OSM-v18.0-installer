@@ -27,8 +27,5 @@ echo "The instructions are in osm-install-files/README.txt"
 # Run the install again, saving a log of the installation, in case it's needed for troubleshooting
 # ./install_osm.sh -y 2>&1 | tee osm_install_log.txt
 
-# Save the values of the variables needed and echo them
-export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress nbi-ingress)
-echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
-export OSM_GUI_URL=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress ngui-ingress)
-echo "OSM UI: $OSM_GUI_URL"
+# Run export_variables.sh to save the variables
+./export_variables.sh

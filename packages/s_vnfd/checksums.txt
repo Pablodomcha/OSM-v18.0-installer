@@ -1,2 +1,0 @@
-b20f2e823800bf183d5d2bff13b9cd5b	host_vnfd/host_vnfd.yaml
-54723ba6d5a70bd2d8ec654d4e6213d0	host_vnfd/cloud_init/host_cloud_init.cfg

@@ -13,6 +13,13 @@ kubectl patch ingress ngui-ingress -n osm --type='json' -p="[{\"op\": \"replace\
 # 4. Now capture the variables
 export OSM_HOSTNAME=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress nbi-ingress)
 echo "OSM_HOSTNAME (for osm client): $OSM_HOSTNAME"
+echo 'export OSM_HOSTNAME="$OSM_HOSTNAME"' >> ~/.bashrc
 
 export OSM_GUI_URL=$(kubectl get -n osm -o jsonpath="{.spec.rules[0].host}" ingress ngui-ingress)
-echo "OSM UI: $OSM_GUI_URL"
+echo "OSM UI: $OSM_GUI_URL
+echo 'export OSM_GUI_URL="$OSM_GUI_URL"' >> ~/.bashrc
+
+echo "----------------------------------------------------------------------------------------------"
+echo "If you didn't run this command with source, you need to run \"source ~/.bashrc\" or close this terminal and open another for the variables to be updated."
+echo "----------------------------------------------------------------------------------------------"
+

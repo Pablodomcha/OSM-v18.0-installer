@@ -33,7 +33,7 @@ To fix the problems that most likely come from dependancies becoming legacy or p
 		/usr/share/osm-devops/installers/helm/osm/charts
 	with:
 		sudo tar -xzf <filename>
-	then remove the tgz files to ensure it's loading from the folders and not the tar files you don't need to compress the results, this will load from the folders without issue.
+	then remove the tgz files to ensure it's loading from the folders and not the tar files. You don't need to compress the results, this will load from the folders without issue.
 	Do the same replacement as step 2. To find which files may need to be edited:
 		grep -r "bitnami/" .
 

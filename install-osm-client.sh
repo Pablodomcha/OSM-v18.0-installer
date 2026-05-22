@@ -36,7 +36,11 @@ echo "Installing git+https://osm.etsi.org/gerrit/osm/osmclient.git@${OSM_CLIENT_
 echo "----------------------------------------------------------------------------------------------"
 python3 -m pip install git+https://osm.etsi.org/gerrit/osm/osmclient.git@${OSM_CLIENT_VERSION}#egg=osmclient
 echo "----------------------------------------------------------------------------------------------"
-echo "Adding /home/upm/.local/bin to path"
+echo "Adding $HOME/.local/bin to path"
 echo "----------------------------------------------------------------------------------------------"
 sleep 5
-export PATH=$PATH:/home/upm/.local/bin
+export PATH="$PATH:$HOME/.local/bin"
+echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+echo "----------------------------------------------------------------------------------------------"
+echo "If you didn't run this command with source, you need to run \"source ~/.bashrc\" or close this terminal and open another for path to be updated."
+echo "----------------------------------------------------------------------------------------------"

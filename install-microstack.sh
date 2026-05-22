@@ -21,5 +21,8 @@ MSPWC="${MSPW#password}"
 # Export the Microstack password to bashrc
 echo "export MSPWC=$MSPWC" >> ~/.bashrc
 
+echo "----------------------------------------------------------------------------------------------"
 echo "Stored Microstack password to the MSPWC environment variable in bashrc."
-echo "Run \"source ~/.bashrc\" to be able to access it."
+echo "----------------------------------------------------------------------------------------------"
+echo "If you didn't run this command with source, you need to run \"source ~/.bashrc\" or close this terminal and open another for the variable to be updated."
+echo "----------------------------------------------------------------------------------------------"
