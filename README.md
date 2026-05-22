@@ -20,7 +20,7 @@ Some of the scripts in the repository are intended for use in those labs and are
 
 ## Usage
 
-Some of the scripts in this repo are intended to be executed manually for their function, while others are either executed by another script or copied to a relevant location for them. As such, the ones intended for manual execution will be explained here.
+Some of the scripts in this repository are intended to be executed manually for their function, while others are either executed by another script or copied to a relevant location for them. As such, the ones intended for manual execution will be explained here.
 
 It is recommended to run the scripts from their folder, as they use relative paths when they need to access other files.
 
@@ -32,7 +32,7 @@ Installs OSM version 19.0 in the machine. The recommended OS by OSM documentatio
 
 If this script fails, check "osm-install-files/README.txt" it contains the instructions to fix the problems encountered for OSM v18.0 since they're likely to appear for OSM v19.0 in the future.
 
-You can always just install OSM v18.0 from it's branch in this repo as it's installer fixes the dependancies itself (as those were already broken when creating it's installer, unlike for v19.0). The scripts in this branch should work for v18.0.
+You can always just install OSM v18.0 from it's branch in this repository as it's installer fixes the dependancies itself (as those were already broken when creating it's installer, unlike for v19.0). The scripts in this branch should work for v18.0.
 
 #### - export_variables.sh
 
