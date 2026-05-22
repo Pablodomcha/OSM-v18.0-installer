@@ -60,7 +60,7 @@ Creates many users quickly with simple names and passwords. Intended for educati
 
 Installs MicroStack in the machine for testing using OpenStack in a laboratory environment. Check MicroStack requirements before attempting to install it.
 
-#### - bin-setup-files/microk8s-cert-config
+#### - microk8s-cert-config
 
 Adds the IP of the machine that is running microk8s to it's trusted list so that it can run microk8s commands in the cluster.
 
