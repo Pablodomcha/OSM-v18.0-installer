@@ -13,6 +13,10 @@ echo "Usage: $0 [NUMBER_OF_USERS | -d]"
     echo "  -c, --create NUMBER        Create/Recreate a specific user and project."
     echo "  -h, --help                 Show this help message and exit."
     echo ""
+	echo "  Usernames are: user1, user2, user3..."
+	echo "  Passwords are password1, password2, password3..."
+	echo "  Projects are project1, project2, project3..."
+	echo ""
     echo "Examples:"
     echo "  $0 -ca 10    Creates project1...project10 and user1...user10."
     echo "  $0 -da       Deletes project1, user1, project2, user2... until it finds one that is missing"
@@ -36,7 +40,7 @@ elif [[ "$1" == "-c" ]] || [[ "$1" == "--create" ]]; then
     ROLE="project_admin"
     PROJECT="project$SPEC_ID"
     USER="user$SPEC_ID"
-    USER_PASS="RDSV_OSM_lab$SPEC_ID" # OSM forces you to change your password on first login
+    USER_PASS="password$SPEC_ID" # OSM forces you to change your password on first login
 
     echo ">> Recreating specific set: $USER and $PROJECT..."
     
