@@ -30,6 +30,10 @@ It is recommended to run the scripts from their folder, as they use relative pat
 
 Installs OSM version 19.0 in the machine. The recommended OS by OSM documentation is Ubuntu server 24.04.
 
+If this script fails, check "osm-install-files/README.txt" it contains the instructions to fix the problems encountered for OSM v18.0 since they're likely to appear for OSM v19.0 in the future.
+
+You can always just install OSM v18.0 from it's branch in this repo as it's installer fixes the dependancies itself (as those were already broken when creating it's installer, unlike for v19.0). The scripts in this branch should work for v18.0.
+
 #### - export_variables.sh
 
 Exports the variables of the hostname and GUI, the hostname variable is needed to run any command in the OSM client. This also updates the IP for the nbi, which doesn't update automatically when the IP for the machine running OSM changes.
@@ -47,6 +51,10 @@ Can also be used in any other machine for IP configuration purposes, but ensure 
 Installs the OSM client in the machine, also installing all the requirements. Uses older versions of some of the required programs to allow this to work in Ubuntu 20.04.
 
 The client is needed to run commands in OSM. In fact, the osm installer script from ETSII installs it in the OSM machine by default, though usually you run the commands from another machine.
+
+#### - create-user.sh
+
+Creates many users quickly with simple names and passwords. Intended for educational laboratory environments where you need to create users for all students quickly. Has a -h command to show how it works.
 
 #### - install-microstack.sh
 
