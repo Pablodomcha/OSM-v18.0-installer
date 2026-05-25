@@ -37,5 +37,7 @@ sudo chmod 660 server.crt
 
 echo "-- Restarting microk8s"
 # Restart to apply
-sudo microk8s stop && sudo microk8s start
+sudo microk8s stop
+sleep 5
+sudo microk8s start
 
