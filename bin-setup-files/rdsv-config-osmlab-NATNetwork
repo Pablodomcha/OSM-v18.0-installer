@@ -92,9 +92,6 @@ spec:
  }'
 EOF
 
-# Delete the existing definition if it exists (ignores errors if it doesn't)
-microk8s kubectl delete -n $OSMNS network-attachment-definitions extnet1 --ignore-not-found
-
 # Configure Multus extnet1
 microk8s kubectl get -n $OSMNS network-attachment-definitions extnet1 || \
 cat <<EOF | microk8s kubectl create -n $OSMNS -f -
