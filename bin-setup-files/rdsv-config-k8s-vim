@@ -3,13 +3,12 @@
 # Delete dummy VIM if registered
 osm vim-show dummy_vim > /dev/null 2>&1 && ( echo "-- Deleting dummy_vim..."; osm vim-delete --wait dummy_vim )
 
-osm vim-create --name dummy_vim --user u --password p --tenant p \
---account_type dummy --auth_url http://localhost/dummy --wait
+osm vim-create --name dummy_vim --user u --password p --tenant p --account_type dummy --auth_url http://localhost/dummy --wait
 
 osm vim-list
 
 # Delete microk8s-cluster registration if already registered
-osm k8scluster-show microk8s-cluster > /dev/null 2>&1 && ( echo "-- Deleting microk8s-cluster previous registration..."; osm k8scluster-delete --wait microk8s-cluster )
+osm k8scluster-show microk8s-cluster > /dev/null 2>&1 && (echo "-- Deleting microk8s-cluster previous registration..."; osm k8scluster-delete --wait microk8s-cluster)
 sleep 6
 
 #read -p "PAK"
