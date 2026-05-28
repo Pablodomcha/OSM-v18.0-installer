@@ -1,6 +1,6 @@
 #!/bin/bash
 
-./rdsv-config-multus
+./rdsv-config-k8s-vim
 
 source ~/.bashrc
 
