@@ -70,6 +70,10 @@ Adds the IP of the machine that is running microk8s to it's trusted list so that
 
 Configures the microk8s dummy VIM and cluster and creates Multus interfaces. Identical to the file in the lab practice but without the tunnel configuration, as it is intended for Nat Network usage.
 
+To only configure the VIM and cluster use "rdsv-config-k8s-vim".
+
+To only configure Multus interfaces run "rdsv-config-multus".
+
 #### - bin-setup-files/rdsv-get-osmlab-2026
 
 Copies the VMs for OSM and K8s in the appropriate folder, changes the VBox VM path to that one and configures the network for the VMs.
