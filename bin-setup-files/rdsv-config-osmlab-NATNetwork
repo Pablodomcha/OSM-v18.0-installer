@@ -6,6 +6,3 @@ source ~/.bashrc
 
 ./rdsv-config-multus
 
-echo "----------------------------------------------------------------------------------------------"
-echo "If you didn't run this command with source, you need to run \"source ~/.bashrc\" or close this terminal and open another for the path to be updated."
-echo "----------------------------------------------------------------------------------------------"
