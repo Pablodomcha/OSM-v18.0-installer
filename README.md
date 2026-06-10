@@ -30,19 +30,23 @@ It is recommended to run the scripts from their folder, as they use relative pat
 
 Installs OSM version 19.0 in the machine. The recommended OS by OSM documentation is Ubuntu server 24.04.
 
-If this script fails, check "osm-install-files/README.txt" it contains the instructions to fix the problems encountered for OSM v18.0 since they're likely to appear for OSM v19.0 in the future.
+If this script fails, check "osm-install-files/README.txt" it contains the instructions to fix the problems encountered for OSM v18.0 since they arere likely to appear for OSM v19.0 in the future.
 
 You can always just install OSM v18.0 from it's branch in this repository as it's installer fixes the dependancies itself (as those were already broken when creating it's installer, unlike for v19.0). The scripts in this branch should work for v18.0.
 
 #### - export_variables.sh
 
-Exports the variables of the hostname and GUI, the hostname variable is needed to run any command in the OSM client. This also updates the IP for the nbi, which doesn't update automatically when the IP for the machine running OSM changes.
+Exports the variables of the hostname and GUI, the hostname variable is needed to run any command in the OSM client. This also updates the IP for the nbi, which doesn not update automatically when the IP for the machine running OSM changes.
 
 #### - nat-config.sh
 
-Changes the files to configure the static IP: 10.0.2.15 for it to work in a local Nat network in case DHCP doesn't work. The script itself tells you where to edit the IP in case another is desired.
+Changes the files to configure the static IP: 10.0.2.15 for it to work in a local Nat network in case DHCP doesn not work. The script itself tells you where to edit the IP in case another is desired.
 
-Can also be used in any other machine for IP configuration purposes, but ensure there's not 2 machines with the same IP.
+Can also be used in any other machine for IP configuration purposes, but ensure there are not 2 machines with the same IP.
+
+#### - rm-nat-config.sh
+
+Deletes the files added by "nat-config.sh".
 
 ### Scripts intended for use in a different machine:
 
