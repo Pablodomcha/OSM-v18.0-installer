@@ -23,8 +23,6 @@ openssl req -new -nodes -keyout kubelet.key -out kubelet.csr -config csr.conf.te
 openssl req -new -nodes -keyout server.key -out server.csr -config csr.conf.template
 
 echo "-- Signing the certificate again with the new IP allowed"
-# Sign the certificate with a self-signed certificate first (this shouldn't be needed but it didn't work before and now it does).
-sudo openssl x509 -req -in kubelet.csr -signkey kubelet.key -out kubelet.crt -days 365 -extfile csr.conf.template -extensions v3_ext
 
 # Sign the certificate again, but this time include the extensions from your template and a proper CA
 sudo openssl x509 -req -in kubelet.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out kubelet.crt -days 365 -extfile csr.conf.template -extensions v3_ext
