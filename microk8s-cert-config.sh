@@ -3,9 +3,10 @@
 ETH0_IP=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 LOCATION="/var/snap/microk8s/current/certs"
 
-cd "$LOCATION"
+# Save current directory and move to LOCATION (silencing the pushd output)
+pushd "$LOCATION" > /dev/null
 
-# Check if IP.100 already exists in the file (regardless of what IP it currently has)
+# Check if IP.100 already exists in the file
 if grep -q "^IP.100[[:space:]]*=" "csr.conf.template"; then
     # If it exists, update it to the current ETH0_IP
     sudo sed -i "s/^IP.100[[:space:]]*=.*/IP.100 = $ETH0_IP/" "csr.conf.template"
@@ -44,4 +45,7 @@ echo "-- Restarting microk8s"
 sudo microk8s stop
 sleep 5
 sudo microk8s start
+
+# Return to the original calling folder
+popd > /dev/null
 
