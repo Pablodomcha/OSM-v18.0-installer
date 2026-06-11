@@ -5,11 +5,15 @@ LOCATION="/var/snap/microk8s/current/certs"
 
 cd "$LOCATION"
 
-if ! grep -q "IP.100 = $ETH0_IP" "csr.conf.template"; then
+# Check if IP.100 already exists in the file (regardless of what IP it currently has)
+if grep -q "^IP.100[[:space:]]*=" "csr.conf.template"; then
+    # If it exists, update it to the current ETH0_IP
+    sudo sed -i "s/^IP.100[[:space:]]*=.*/IP.100 = $ETH0_IP/" "csr.conf.template"
+    echo "-- Updated IP.100 to $ETH0_IP in csr.conf.template"
+else
+    # If it doesn't exist, insert it before #MOREIPS
     sudo sed -i "/#MOREIPS/i IP.100 = $ETH0_IP" "csr.conf.template"
     echo "-- Added IP.100 = $ETH0_IP to csr.conf.template"
-else
-    echo "-- IP already exists in template."
 fi
 
 # Test if it works with onlt the kubelet one without the extra line
