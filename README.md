@@ -68,6 +68,10 @@ Installs MicroStack in the machine for testing using OpenStack in a laboratory e
 
 Adds the IP of the machine that is running microk8s to it's trusted list so that it can run microk8s commands in the cluster.
 
+#### - login.sh
+
+Takes as parameters the OSM NBI, the OSM user, the user's password and the project (in this specific order) and assigns them to the corresponding variables to enable simple OSM login. Has a -h option to display a help message with it's usage.
+
 ### Scripts specific to the lab:
 
 #### - bin-setup-files/rdsv-config-osmlab-NATNetwork

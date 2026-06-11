@@ -38,12 +38,12 @@ sudo chmod 660 kubelet.crt
 sudo chown root:microk8s server.crt
 sudo chmod 660 server.crt
 
+# Return to the original calling folder
+popd > /dev/null
+
 echo "-- Restarting microk8s"
 # Restart to apply
 sudo microk8s stop
 sleep 5
 sudo microk8s start
-
-# Return to the original calling folder
-popd > /dev/null
 
