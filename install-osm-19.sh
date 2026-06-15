@@ -3,6 +3,8 @@
 # Run an apt update just in case
 sudo apt update
 
+START_TIME=$SECONDS
+
 # Install microk8s
 # sudo snap install microk8s --classic
 # microk8s enable dns storage ingress
@@ -29,3 +31,8 @@ echo "The instructions are in osm-install-files/README.txt"
 
 # Run export_variables.sh to save the variables
 ./export_variables.sh
+
+ELAPSED_TIME=$(($SECONDS - $START_TIME))
+echo "--"
+echo "-- Total command duration: $ELAPSED_TIME sec"
+echo "--"
