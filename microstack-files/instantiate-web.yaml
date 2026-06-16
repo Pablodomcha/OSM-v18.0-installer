@@ -1,0 +1,14 @@
+internal-vld:
+  - name: internet-net
+    ip-profile:
+      ip-version: ipv4
+      subnet-address: 10.100.3.0/24
+      gateway-address: 10.100.3.1
+    vdu:
+      - id: webserver-vdu
+        interface:
+          - name: eth1
+            ip-address: 10.100.3.4
+vld:
+  - name: internet-net
+    vim-network-name: Internet

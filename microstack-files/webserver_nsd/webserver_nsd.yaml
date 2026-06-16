@@ -1,0 +1,29 @@
+nsd:
+  nsd:
+  - id: webserver-standalone-ns
+    name: webserver-standalone-ns
+    designer: Pablo Dominguez Chafer
+    description: Standalone Web Server Network Service for Microstack testing
+    version: '1.0'
+    df:
+    - id: default-df
+      vnf-profile:
+      - id: webserver
+        virtual-link-connectivity:
+          - constituent-cpd-id:
+              - constituent-base-element-id: webserver
+                constituent-cpd-id: mgmt-ext
+            virtual-link-profile-id: mgmtnet
+          - constituent-cpd-id:
+              - constituent-base-element-id: webserver
+                constituent-cpd-id: internet-ext
+            virtual-link-profile-id: internet-net
+        vnfd-id: webserverknf
+    version: '1.0'    
+    virtual-link-desc:
+      - id: mgmtnet
+        mgmt-network: true
+      - id: internet-net
+        mgmt-network: false
+    vnfd-id:
+      - webserverknf
