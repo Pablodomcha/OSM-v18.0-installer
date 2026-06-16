@@ -18,13 +18,13 @@ vnfd:
       size-of-storage: 10 
 
   sw-image-desc:
-    - id: ubuntu22.04  
-      name: ubuntu22.04
+    - id: ubuntu20 
+      name: ubuntu20
 
   vdu:
     - id: webserver-vdu
       name: webserver-vdu
-      sw-image-desc: ubuntu22.04
+      sw-image-desc: ubuntu20
       virtual-compute-desc: webserver-compute
       virtual-storage-desc: webserver-storage
       int-cpd:
@@ -37,7 +37,7 @@ vnfd:
             - name: eth1
               position: 2
       # ----------------------------------------------------
-      # ADDED: Cloud-init Automation
+      # Cloud-init Automation
       # ----------------------------------------------------
       cloud-init: |
         #cloud-config
@@ -46,7 +46,7 @@ vnfd:
           - apache2
         write_files:
           - path: /etc/netplan/50-cloud-init.yaml
-            defer: true # Let OSM assign the IP via DHCP/Static parameters first
+            defer: true
             content: |
               network:
                 version: 2
@@ -66,18 +66,28 @@ vnfd:
           - netplan apply
           - echo "<h1>Hello from Microstack Web Server (10.100.3.4)</h1>" > /var/www/html/index.html
 
+  # -----------------------------------------------------------------------
+  # FIXED SCHEMA MAPPING: Using vdu-id and cpd-id leaves inside int-cpd
+  # -----------------------------------------------------------------------
   ext-cpd:
     - id: mgmt-ext
       int-cpd:
-        constituent-base-element-id: webserver-vdu
-        int-cpd-id: eth0-int
+        vdu-id: webserver-vdu
+        cpd: eth0-int
     - id: internet-ext
       int-cpd:
-        constituent-base-element-id: webserver-vdu
-        int-cpd-id: eth1-int
+        vdu-id: webserver-vdu
+        cpd: eth1-int
 
   df:
-    - id: default-df
-      vdu-profile:
-        - id: webserver-vdu
-          min-number-of-instances: 1
+  - id: default-df
+
+    vdu-profile:
+      - id: webserver-vdu
+        min-number-of-instances: 1
+
+    instantiation-level:
+      - id: default-instantiation-level
+        vdu-level:
+          - vdu-id: webserver-vdu
+            number-of-instances: 1
