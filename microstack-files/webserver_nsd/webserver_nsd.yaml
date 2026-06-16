@@ -1,7 +1,7 @@
 nsd:
   nsd:
-  - id: webserver-standalone-ns
-    name: webserver-standalone-ns
+  - id: webserver-ns
+    name: webserver-ns
     designer: Pablo Dominguez Chafer
     description: Standalone Web Server Network Service for Microstack testing
     version: '1.0'
