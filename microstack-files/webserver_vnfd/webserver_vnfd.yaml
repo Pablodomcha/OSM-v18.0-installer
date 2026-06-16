@@ -1,0 +1,83 @@
+vnfd:
+  id: webserverknf
+  product-name: webserverknf
+  description: Web Server running on Microstack VIM with automated Cloud-Init routing
+  version: '1.0'
+  provider: GUI
+  mgmt-cp: mgmt-ext
+
+  virtual-compute-desc:
+    - id: webserver-compute
+      virtual-memory:
+        size: 1.0 
+      virtual-cpu:
+        num-virtual-cpu: 1
+
+  virtual-storage-desc:
+    - id: webserver-storage
+      size-of-storage: 10 
+
+  sw-image-desc:
+    - id: ubuntu22.04  
+      name: ubuntu22.04
+
+  vdu:
+    - id: webserver-vdu
+      name: webserver-vdu
+      sw-image-desc: ubuntu22.04
+      virtual-compute-desc: webserver-compute
+      virtual-storage-desc: webserver-storage
+      int-cpd:
+        - id: eth0-int # Management
+          virtual-network-interface-requirement:
+            - name: eth0
+              position: 1
+        - id: eth1-int # Data Plane (Internet)
+          virtual-network-interface-requirement:
+            - name: eth1
+              position: 2
+      # ----------------------------------------------------
+      # ADDED: Cloud-init Automation
+      # ----------------------------------------------------
+      cloud-init: |
+        #cloud-config
+        package_update: true
+        packages:
+          - apache2
+        write_files:
+          - path: /etc/netplan/50-cloud-init.yaml
+            defer: true # Let OSM assign the IP via DHCP/Static parameters first
+            content: |
+              network:
+                version: 2
+                ethernets:
+                  eth1:
+                    dhcp4: false
+                    addresses:
+                      - 10.100.3.4/24
+                    routes:
+                      - to: 10.100.1.0/24
+                        via: 10.100.3.1
+                      - to: 10.100.2.0/24
+                        via: 10.100.3.2
+                      - to: default
+                        via: 10.100.3.1
+        runcmd:
+          - netplan apply
+          - echo "<h1>Hello from Microstack Web Server (10.100.3.4)</h1>" > /var/www/html/index.html
+
+  ext-cpd:
+    - id: mgmt-ext
+      int-cpd:
+        constituent-base-element-id: webserver-vdu
+        int-cpd-id: eth0-int
+    - id: internet-ext
+      int-cpd:
+        constituent-base-element-id: webserver-vdu
+        int-cpd-id: eth1-int
+
+  df:
+    - id: default-df
+      vdu-profile:
+        - id: webserver-vdu
+          min-number-of-instances: 1

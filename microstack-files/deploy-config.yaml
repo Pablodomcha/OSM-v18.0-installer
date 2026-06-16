@@ -1,0 +1,22 @@
+vimAccountId: k8s-vim  # Default VIM for KNFs
+vnf:
+  - member-vnf-index: webserver
+    vimAccountId: microstack-vim # Places the VM inside OpenStack
+    internal-vld:
+      - name: internet-net
+        # Assign the static IP to the VM interface inside the 10.100.3.0/24 subnet
+        ip-profile:
+          ip-version: ipv4
+          subnet-address: 10.100.3.0/24
+          gateway-address: 10.100.3.1 # Matches isp1 gateway used by s1
+        vdu:
+          - id: webserver-vdu
+            interface:
+              - name: eth1
+                ip-address: 10.100.3.4
+
+# Maps the virtual link ID to your physical OpenStack external provider network 
+# linked to VNX's "Internet" OpenvSwitch network
+vld:
+  - name: internet-net
+    vim-network-name: Internet
