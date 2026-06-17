@@ -10,7 +10,7 @@ vnf:
 # This maps the NSD's virtual link descriptor to the physical OpenvSwitch net
 vld:
   - name: internet-net
-    vim-network-name: Internet
+    vim-network-name: external
     # If your version needs IP tracking parameters on the link level:
     ip-profile:
       ip-version: ipv4

@@ -68,6 +68,8 @@ Installs MicroStack in the machine for testing using OpenStack in a laboratory e
 
 Adds the IP of the machine that is running microk8s to it's trusted list so that it can run microk8s commands in the cluster.
 
+If you want to add a different IP, add it to the list of "alt_names" in the file "csr.conf.template" found in "/var/snap/microk8s/current/certs" with a number other than IP.100 (as that one is overwritten by this script), then run this. It will also add the IP of the machine running the command (which has to be the Microk8s machine) appart from the one you added manually.
+
 #### - login.sh
 
 Takes as parameters the OSM NBI, the OSM user, the user's password and the project (in this specific order) and assigns them to the corresponding variables to enable simple OSM login. Has a -h option to display a help message with it's usage.
@@ -85,3 +87,7 @@ To only configure Multus interfaces run "rdsv-config-multus".
 #### - bin-setup-files/rdsv-get-osmlab-2026
 
 Copies the VMs for OSM and K8s in the appropriate folder, changes the VBox VM path to that one and configures the network for the VMs.
+
+## Notes
+
+The osm VM sometimes doesn't properly start OSM when restarted. The reason remains unknown and a restart often fixes it.
