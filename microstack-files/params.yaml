@@ -1,0 +1,10 @@
+vld:
+  - name: internet-net
+    vim-network-name: external
+  - name: mgmtnet
+    vim-network-name: test
+vnf:
+  - member-vnf-index: webserver
+    vdu:
+      - id: webserver-vdu
+        vim-flavor: m1.small

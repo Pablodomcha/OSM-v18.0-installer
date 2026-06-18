@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Installs a snap of microstack and initialize it
-sudo snap install microstack --beta --devmode
+sudo snap install microstack --channel=latest/beta
 sudo microstack init --control --auto
 
 # Get the ubuntu image for the deployments and change permissions for it

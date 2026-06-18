@@ -18,7 +18,7 @@ nsd:
               - constituent-base-element-id: webserver
                 constituent-cpd-id: internet-ext
             virtual-link-profile-id: internet-net
-        vnfd-id: webserverknf
+        vnfd-id: webservervnf
     version: '1.0'    
     virtual-link-desc:
       - id: mgmtnet
@@ -26,4 +26,4 @@ nsd:
       - id: internet-net
         mgmt-network: false
     vnfd-id:
-      - webserverknf
+      - webservervnf

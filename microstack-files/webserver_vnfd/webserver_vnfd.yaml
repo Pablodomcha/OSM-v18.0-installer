@@ -1,6 +1,6 @@
 vnfd:
-  id: webserverknf
-  product-name: webserverknf
+  id: webservervnf
+  product-name: webservervnf
   description: Web Server running on Microstack VIM with automated Cloud-Init routing
   version: '1.0'
   provider: GUI
@@ -9,13 +9,13 @@ vnfd:
   virtual-compute-desc:
     - id: webserver-compute
       virtual-memory:
-        size: 1.0 
+        size: 2.0
       virtual-cpu:
         num-virtual-cpu: 1
 
   virtual-storage-desc:
     - id: webserver-storage
-      size-of-storage: 10 
+      size-of-storage: 20 
 
   sw-image-desc:
     - id: ubuntu20 
