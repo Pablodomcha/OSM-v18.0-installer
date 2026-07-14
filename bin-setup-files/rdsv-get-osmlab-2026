@@ -1,9 +1,9 @@
 #!/bin/bash
 
-OVAFILE_OSM='OSM.ova'
+OVAFILE_OSM='RDSV-OSM-2026.ova'
 OVAFILE_K8S='RDSV-K8S-2024-v2.ova'
 LABDIR=/lab/rdsv/repo
-VMNAME_OSM='OSM'
+VMNAME_OSM='RDSV-OSM-2026'
 VMNAME_K8S='RDSV-K8S-2024-v2'
 NATNETWORK='Nat_OSM'
 
@@ -36,7 +36,7 @@ echo "-- Creating NAT Network..."
 echo "--"
 VBoxManage natnetwork add --netname="$NATNETWORK" --network="10.0.2.0/24" --enable
 
-# Enable dhcp in case it's not (though OSM will have a static IP most likely).
+# Enable dhcp in case it's not.
 VBoxManage natnetwork modify --netname $NATNETWORK --dhcp on
 
 # If hostonlynet is used, disable the NAT network part.
@@ -52,22 +52,22 @@ VBoxManage natnetwork modify --netname $NATNETWORK --dhcp on
 #echo "--"
 #vboxmanage hostonlyif ipconfig vboxnet0 --ip=192.168.56.1 --netmask=255.255.255.0
 
-#echo "--"
-#echo "-- Creating temporary VirtualBox folder for $USER..."
-#echo "--"
-#mkdir -p /mnt/tmp/cache/$USER/VirtualBox/
-#vboxmanage setproperty machinefolder /mnt/tmp/cache/$USER/VirtualBox/
+echo "--"
+echo "-- Creating temporary VirtualBox folder for $USER..."
+echo "--"
+mkdir -p /mnt/tmp/cache/$USER/VirtualBox/
+vboxmanage setproperty machinefolder /mnt/tmp/cache/$USER/VirtualBox/
 
 echo "--"
 echo "-- Importing $OVAFILE_OSM into VirtualBox..."
 echo "--"
-echo vboxmanage import /lab/$LABDIR/$OVAFILE_OSM
+echo vboxmanage import /$LABDIR/$OVAFILE_OSM
 vboxmanage import $LABDIR/$OVAFILE_OSM
 
 echo "--"
 echo "-- Importing $OVAFILE_K8S into VirtualBox..."
 echo "--"
-echo vboxmanage import /lab/$LABDIR/$OVAFILE_K8S
+echo vboxmanage import /$LABDIR/$OVAFILE_K8S
 vboxmanage import $LABDIR/$OVAFILE_K8S
 
 echo "--"

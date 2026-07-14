@@ -6,6 +6,8 @@ OSM documentation:
 
 https://osm.etsi.org/docs/user-guide/latest/
 
+For the preparation of the lab, the instructions in spanish are in "INSTRUCCIONES LABO ETSIT-UPM"
+
 ## License
 
 This project contains modified versions of code from the repositories:
